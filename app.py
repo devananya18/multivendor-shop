@@ -4,9 +4,10 @@ from flask import Flask, g, session, request, redirect, render_template, flash, 
 from werkzeug.security import generate_password_hash as gph, check_password_hash as cph
 
 BASE = os.path.dirname(os.path.abspath(__file__))
-DB = os.environ.get("DB_PATH", os.path.join(BASE, "shop.db"))
+DEFAULT_DB = "/tmp/shop.db" if os.environ.get("VERCEL") else os.path.join(BASE, "shop.db")
+DB = os.environ.get("DB_PATH", DEFAULT_DB)
 STEPS = ["Placed", "Packed", "Shipped", "Delivered"]
-app = Flask(__name__)
+app = Flask(__name__, static_folder="public/static", static_url_path="/static")
 app.secret_key = os.environ.get("SECRET_KEY", "dev-change-me")
 
 def db():
