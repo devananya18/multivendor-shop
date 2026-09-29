@@ -1,0 +1,12 @@
+{% extends "base.html" %}{% block body %}<h2>Admin panel</h2>
+<h3>Vendors</h3><table><tr><th>Name</th><th>Email</th><th>Status</th><th></th></tr>{% for v in vs %}<tr><td>{{v.name}}</td><td>{{v.email}}</td>
+<td>{{'Approved' if v.approved else 'Pending'}}</td><td><form method="post" action="/admin/approve/vendor/{{v.id}}"><input type="hidden" name="v" value="{{0 if v.approved else 1}}">
+<button class="{{'red' if v.approved}}">{{'Revoke' if v.approved else 'Approve'}}</button></form></td></tr>{% endfor %}</table>
+<h3>Products</h3><table><tr><th>Name</th><th>Vendor</th><th>Price</th><th>Status</th><th></th></tr>{% for p in ps %}<tr><td>{{p.name}}</td><td>{{p.vendor}}</td><td>₹{{p.price}}</td>
+<td>{{'Live' if p.approved else 'Pending'}}</td><td><form method="post" action="/admin/approve/product/{{p.id}}"><input type="hidden" name="v" value="{{0 if p.approved else 1}}">
+<button class="{{'red' if p.approved}}">{{'Hide' if p.approved else 'Approve'}}</button></form></td></tr>{% endfor %}</table>
+<h3>Coupons</h3><table><tr><th>Code</th><th>%</th><th>Min order</th></tr>{% for c in cs %}<tr><td>{{c.code}}</td><td>{{c.percent}}%</td><td>₹{{c.min_total}}</td></tr>{% endfor %}</table>
+<form class="row" method="post" action="/admin/coupon"><input name="code" placeholder="CODE" required><input name="percent" type="number" placeholder="% off" required>
+<input name="min_total" type="number" placeholder="Min order"><button>Add / update</button></form>
+<h3>All orders</h3><table><tr><th>#</th><th>Total</th><th>Status</th></tr>{% for o in os %}<tr><td>{{o.id}}</td><td>₹{{o.total}}</td><td><form class="row" method="post" action="/order/{{o.id}}/status">
+<select name="status">{% for s in steps %}<option {{'selected' if s==o.status}}>{{s}}</option>{% endfor %}</select><button>Save</button></form></td></tr>{% endfor %}</table>{% endblock %}

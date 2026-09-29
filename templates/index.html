@@ -1,0 +1,6 @@
+{% extends "base.html" %}{% block body %}<h2>{{title}}</h2>
+{% if not ps %}<p class="muted">Nothing here yet.</p>{% endif %}
+<div class="grid">{% for p in ps %}<div class="card"><img src="{{p.image}}" alt=""><b>{{p.name}}</b><br>
+<small>by {{p.vendor}} · {{p.stock}} in stock</small><p>{{p.description}}</p><div class="price">₹{{'%.0f'|format(p.price)}}</div>
+<div class="row" style="margin-top:8px"><form method="post" action="/add/{{p.id}}"><button {% if p.stock<1 %}disabled{% endif %}>Add to cart</button></form>
+<form method="post" action="/wish/{{p.id}}"><button class="alt">{{'♥' if p.id in wl else '♡'}}</button></form></div></div>{% endfor %}</div>{% endblock %}

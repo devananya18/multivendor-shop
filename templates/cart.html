@@ -1,0 +1,6 @@
+{% extends "base.html" %}{% block body %}<h2>Your cart</h2>
+<table><tr><th>Product</th><th>Qty</th><th>Price</th><th></th></tr>{% for i in items %}
+<tr><td>{{i.name}}</td><td>{{i.qty}}</td><td>₹{{i.qty*i.price}}</td><td><form method="post" action="/remove/{{i.id}}"><button class="red">✕</button></form></td></tr>{% endfor %}</table>
+{% if items %}<div class="card form" style="margin:0"><h3>Subtotal ₹{{sub}}</h3><form method="post" action="/checkout">
+<textarea name="address" placeholder="Delivery address" required></textarea><input name="coupon" placeholder="Coupon (try WELCOME10)">
+<button>Place order (demo payment)</button></form></div>{% endif %}{% endblock %}

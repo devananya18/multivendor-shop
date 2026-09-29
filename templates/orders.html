@@ -1,0 +1,4 @@
+{% extends "base.html" %}{% block body %}<h2>My orders</h2>{% for o in os %}<div class="card" style="margin-bottom:14px">
+<b>Order #{{o.id}}</b> <small>{{o.created}}</small> — <b>₹{{o.total}}</b>{% if o.coupon %} <span class="badge">{{o.coupon}} −₹{{o.discount}}</span>{% endif %}
+<div class="track">{% for s in steps %}<div class="{{'on' if loop.index0<=steps.index(o.status)}}">{{s}}</div>{% endfor %}</div>
+{% for i in its[o.id] %}<div>{{i.qty}} × {{i.name}} — ₹{{i.price}}</div>{% endfor %}</div>{% else %}<p class="muted">No orders yet.</p>{% endfor %}{% endblock %}

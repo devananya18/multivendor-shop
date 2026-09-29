@@ -1,0 +1,5 @@
+{% extends "base.html" %}{% block body %}<div class="card form"><h2>{{mode|capitalize}}</h2><form method="post">
+{% if mode=='register' %}<input name="name" placeholder="Name" required>{% endif %}
+<input name="email" type="email" placeholder="Email" required><input name="password" type="password" placeholder="Password" required>
+{% if mode=='register' %}<select name="role"><option value="user">I want to buy</option><option value="vendor">I want to sell</option></select>{% endif %}
+<button>{{mode|capitalize}}</button></form></div>{% endblock %}

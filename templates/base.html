@@ -1,0 +1,8 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MiniMart</title><link rel="stylesheet" href="/static/style.css"></head><body>
+<nav><a class="brand" href="/">🛒 MiniMart</a>
+<form action="/"><input name="s" placeholder="Search products"><button>Go</button></form>
+{% if user %}<a href="/wishlist">♥ Wishlist</a><a href="/cart">Cart ({{cart_n}})</a><a href="/orders">Orders</a>
+{% if user.role=='vendor' %}<a href="/vendor">Vendor panel</a>{% endif %}{% if user.role=='admin' %}<a href="/admin">Admin</a>{% endif %}
+<a href="/logout">Logout ({{user.name}})</a>{% else %}<a href="/login">Login</a><a href="/register">Register</a>{% endif %}</nav>
+<main>{% for m in get_flashed_messages() %}<div class="flash">{{m}}</div>{% endfor %}{% block body %}{% endblock %}</main></body></html>
